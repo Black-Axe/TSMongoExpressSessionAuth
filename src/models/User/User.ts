@@ -1,35 +1,29 @@
-import { Document, Model, model, Schema } from "mongoose";
+import { model, Schema, PassportLocalDocument, PassportLocalSchema} from "mongoose";
 import { IUserType } from "../UserType/UserType";
-import UserType from "../UserType/UserType"
-import userTypes from "../UserType/config";
+import passportLocalMongoose from "passport-local-mongoose";
 
 /**
  * Interface to model the User Schema for TypeScript.
- * @param email:string
- * @param password:string
- * @param avatar:string
+ * @param email: string
+ * @param username: string
  * @param userAccess: ref => [ UserType._id]
  */
 
+//passport-local-mongoose will handle the password and hashing
 
-export interface IUser extends Document {
+export interface IUser extends PassportLocalDocument {
       userAccess: IUserType["_id"];
       email: string;
-      password: string;
       username: string;
       
 }
 
-const UserSchema: Schema = new Schema({
+const UserSchema: PassportLocalSchema = new Schema({
       email: {
             type: String,
             required: true,
             unique: true,
             
-      },
-      password: {
-            type: String,
-            required: true,
       },
       username: {
             type: String,
@@ -45,5 +39,7 @@ const UserSchema: Schema = new Schema({
             ],
 });
 
-const User: Model<IUser> = model<IUser>("User", UserSchema);
+UserSchema.plugin(passportLocalMongoose);
+
+const User = model<IUser>("User", UserSchema);
 export default User;
