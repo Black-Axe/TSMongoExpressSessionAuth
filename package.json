@@ -12,7 +12,6 @@
     "start": "npm run deploy",
     "rimraf": "./node_modules/rimraf/bin.js",
     "clean": "rimraf dist/",
-
     "compile": "npm run clean && tsc",
     "production": "NODE_ENV=production npm run start",
     "dev": "NODE_ENV=development npm run start"
