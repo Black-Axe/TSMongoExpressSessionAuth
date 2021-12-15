@@ -1,0 +1,53 @@
+.display-3 {
+  font-size: 4rem;
+  font-weight: 700;
+  @media screen and (max-width: 1199px) {
+    font-size: 3rem;
+  }
+}
+.white-color {
+  color: #ff9301;
+}
+.h4 {
+  font-size: 1.5rem;
+}
+.error-page-wrapper {
+  background: #1a1a1a;
+  padding: 80px 0;
+  height: calc(100vh - 71px) !important;
+  display: flex;
+  align-items: center;
+
+  .inner {
+    padding-top: 35px;
+    img {
+      max-width: 80%;
+    }
+    @media screen and (max-width: 1919px) {
+      img {
+        max-width: 330px;
+      }
+    }
+    .display-3 {
+      font-size: 60px;
+      @media screen and (max-width: 991px) {
+        font-size: 40px;
+      }
+    }
+    .h4 {
+      font-size: 19px;
+      margin: 15px 0;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+  }
+
+  .h4 {
+    color: #cbcbcb;
+  }
+}
+
+
+.logo-404{
+  width:150px;
+}

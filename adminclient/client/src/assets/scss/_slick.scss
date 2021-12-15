@@ -1,0 +1,119 @@
+.slick-dots {
+  li {
+    button {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      position: relative;
+
+      &::before {
+        content: "";
+        font-size: 0;
+        opacity: 1;
+        border: 2px solid #ffb043;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        transition: 0.3s ease-in-out;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        transform: scale(0);
+        background: #ffb043;
+        transition: 0.3s ease-in-out;
+        border-radius: inherit;
+        z-index: 5;
+      }
+    }
+    &.slick-active {
+      button {
+        &::after {
+          transform: scale(0.5);
+        }
+      }
+    }
+  }
+}
+
+.testimonial-wrapper,
+.preview-inner {
+  .slick-slide > div {
+    margin: 0 10px;
+  }
+  .slick-list {
+    margin: 0 -10px;
+  }
+}
+
+// slick prev
+.client-feedback-slider-three,
+.client-feedback-slider-seven,
+.client-feedback-slider-one,
+.custom-icon-slick-arrow {
+  .slick-next,
+  .slick-prev {
+    transition: all 0.3s ease-in-out;
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+    bottom: -80px;
+
+    &::before {
+      display: none;
+    }
+    &::after {
+      content: "\f103";
+      font-family: Flaticon;
+      font-size: 40px;
+      color: #5d5d5d;
+      transition: all 0.3s ease-in-out;
+      display: inline-block;
+    }
+    &:hover {
+      &::after {
+        transform: rotate(0) scale(1);
+      }
+    }
+  }
+
+  .slick-prev {
+    transform: translateX(-45px);
+    &::after {
+      transform: rotate(180deg) scale(0.8);
+    }
+    &:hover {
+      &::after {
+        transform: rotate(180deg) scale(1);
+      }
+    }
+  }
+  .slick-next {
+    transform: translateX(15px);
+    &::after {
+      transform: rotate(0) scale(0.8);
+    }
+  }
+}
+.client-feedback-slider-seven {
+  .slick-next,
+  .slick-prev {
+    bottom: -60px;
+  }
+}
+.client-feedback-slider-one {
+  @media screen and (min-width: 992px) {
+    .slick-next,
+    .slick-prev {
+      left: 50px;
+      transform: translateX(0);
+    }
+    .slick-prev {
+      transform: translateX(-45px);
+    }
+  }
+}

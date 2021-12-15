@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="235px" height="235px" viewBox="0 0 235 235" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M84.9418 169.834C131.854 169.834 169.884 131.816 169.884 84.9172C169.884 38.0187 131.854 0 84.9418 0C38.0297 0 0 38.0187 0 84.9172C0 131.816 38.0297 169.834 84.9418 169.834Z" transform="translate(0.3049274 0.23578644)" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Group-34" transform="matrix(0.8660254 0.5 -0.5 0.8660254 86.18262 0.68310547)">
+    <path d="M84.9418 169.834C131.854 169.834 169.884 131.816 169.884 84.9172C169.884 38.0187 131.854 0 84.9418 0C38.0297 0 0 38.0187 0 84.9172C0 131.816 38.0297 169.834 84.9418 169.834Z" transform="translate(0.3049274 0.23578644)" id="Mask" fill="none" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_1)">
+      <g id="Group-34" transform="translate(-10.966561 -15.685624)">
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(0.20421363 1.2500511)" id="Rectangle" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(12.945486 1.2500511)" id="Rectangle" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(24.624985 1.2500511)" id="Rectangle-Copy-3" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(37.366257 1.2500511)" id="Rectangle-Copy-4" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(50.10753 1.2500511)" id="Rectangle-Copy-5" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(61.78703 1.2500511)" id="Rectangle-Copy-6" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(74.528305 1.2500511)" id="Rectangle-Copy-7" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(87.26958 1.2500511)" id="Rectangle-Copy-8" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(98.94907 1.2500511)" id="Rectangle-Copy-9" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(111.690346 1.2500511)" id="Rectangle-Copy-10" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(124.43162 1.2500511)" id="Rectangle-Copy-11" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(135.91537 0.7500511)" id="Rectangle-Copy-12" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(148.85239 1.2500511)" id="Rectangle-Copy-13" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(160.53189 1.2500511)" id="Rectangle-Copy-14" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.12355 0L2.12355 180.449L0 180.449L0 0Z" transform="translate(173.27316 1.2500511)" id="Rectangle-Copy-14" fill="#F77A56" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+  </g>
+</svg>

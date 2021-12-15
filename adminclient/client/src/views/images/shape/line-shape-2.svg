@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375.78" height="43.515" viewBox="0 0 375.78 43.515">
+  <g id="Curve_underline_yellow" data-name="Curve underline yellow" transform="translate(1.183 0.286)">
+    <g id="Line" transform="matrix(1, 0.017, -0.017, 1, 1.325, 0.765)">
+      <path id="Path" d="M0,23S233.459-13.064,365,7.42" transform="translate(0.821 1.514)" fill="none" stroke="#ffb840" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <path id="Path-2" data-name="Path" d="M0,19.826S237.046-13.633,369.128,9.374" transform="matrix(0.999, 0.035, -0.035, 0.999, 1.701, 0.344)" fill="none" stroke="#ffb840" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+    </g>
+  </g>
+</svg>

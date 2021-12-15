@@ -1,0 +1,19 @@
+.dark-style {
+  .logo {
+    img {
+     // width: 100px;
+      padding-top: 2%;
+    }
+  }
+  .mobile-menu {
+    background: black;
+    border-right: 1px solid #52d2ed;
+  }
+  .mobile-menu .nav-item .nav-link::before {
+    background: #fff;
+  }
+}
+
+.dark-style .theme-menu-five .right-widget .demo-button img {
+  filter: invert(1);
+}

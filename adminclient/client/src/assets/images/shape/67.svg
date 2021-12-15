@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="1800px" height="988px" viewBox="0 0 1800 988" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M1974 987C1974 441.895 1532.1 0 987 0C441.895 0 0 441.895 0 987" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Background" transform="translate(-86 0.5)">
+    <path d="M1974 987C1974 441.895 1532.1 0 987 0C441.895 0 0 441.895 0 987" id="Mask" fill="#F7FAFF" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>

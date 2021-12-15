@@ -1,0 +1,76 @@
+$sexy-blue: #58e2ff;
+
+.main-header-container{
+    margin-top: 18%;
+
+}
+
+.BlackAxeLogo{
+    width: 150px;
+}
+
+//shrink blackaxe logo on mobile device
+@media screen and (max-width: 768px) {
+    .BlackAxeLogo{
+        width: 50%;
+    }
+}
+
+.white-text{
+    color: white!important;
+}
+
+.blackaxe-header-logo{
+    width: 120px;
+
+}
+
+.oss-button{
+    width: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px;
+    border-radius: 25px;
+}
+
+
+.Oss-span{
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+
+.back-home-again{
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+.back-home{
+    display: flex !important;
+}
+
+.back-home-arrow{
+    margin-left: 12px;
+}
+
+.fund-row{
+    z-index: 4;
+    position: relative;
+}
+
+.about-us-tag{
+    text-decoration: underline;
+}
+
+.Blue-blue{
+    color: $sexy-blue;
+}
+.author_info{
+    color:white;
+}
+
+.download-link{
+    display: initial;
+}
