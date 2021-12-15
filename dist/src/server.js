@@ -8,14 +8,30 @@ const express_1 = __importDefault(require("express"));
 const initAndFill_1 = __importDefault(require("./database/initAndFill"));
 const passport_sessions_config_1 = __importDefault(require("./passport/passport.sessions.config"));
 const router_1 = __importDefault(require("./routes/router"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
+dotenv_1.default.config();
 const app = express_1.default();
 initAndFill_1.default();
-var cors = require('cors');
+/*
+const whiteList = process.env.WHITELISTED_DOMAINS ? process.env.WHITELISTED_DOMAINS.split(',') : [];
+
+
+const corsOptions: cors.CorsOptions = {
+      origin: function (origin, callback) {
+            if (whiteList.indexOf(origin) !== -1) {
+                  callback(null, true);
+            } else {
+                  callback(new Error('Not allowed by CORS'));
+            }
+      }
+};
+*/
+app.use(cors_1.default());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 9010);
 passport_sessions_config_1.default(app);
-app.use(cors());
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
