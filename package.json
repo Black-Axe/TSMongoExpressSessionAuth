@@ -13,8 +13,8 @@
     "rimraf": "./node_modules/rimraf/bin.js",
     "clean": "rimraf dist/",
     "compile": "npm run clean && tsc",
-    "production": "NODE_ENV=production npm run start",
-    "dev": "NODE_ENV=development npm run start"
+    "production": "cross-env NODE_ENV=production npm run start",
+    "dev": "cross-env NODE_ENV=development npm run start"
   },
   "dependencies": {
     "@types/connect-ensure-login": "^0.1.7",
@@ -54,6 +54,7 @@
     "@types/passport-local": "^1.0.34",
     "@types/uuid": "^8.3.3",
     "concurrently": "^4.1.0",
+    "cross-env": "^7.0.3",
     "nodemon": "^1.19.0"
   }
 }
