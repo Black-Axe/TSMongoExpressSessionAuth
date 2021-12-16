@@ -3,7 +3,6 @@ import useDocumentTitle from "../components/useDocumentTitle/useDocumentTitle.js
 import { Link } from "react-router-dom";
 import LoginForm from "../components/LoginForm/LoginForm.js";
 import genericLogo from "./images/logo/genericLogo.png";
-import { useSelector } from 'react-redux';
 
 const Login = () => {
   const [parentError, setParentError] = useState("");
