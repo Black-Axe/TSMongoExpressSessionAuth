@@ -1,4 +1,17 @@
-### MongoDB TypeScript Access/Refresh token with cookies boilerplate
+### MongoDB TypeScript Passport-Session backend with React front-end client
+
+####Features:
+<ul>
+<li>Typescript</li>
+<li>Validation/Middleware</li>
+<li>SudoRoutes</li>
+<li>Protected Routes</li>
+<li>Front-end client interface</li>
+<li>User access levels</li>
+<li>Session storage</li>
+<li>MongoDb</li>
+<li>Passport</li>
+</ul>
 
 
 
@@ -9,7 +22,6 @@
 ```
 cd <project_name>
 npm install
-npm run tsc
 ```
 
 - Build and run the project with auto reload (nodemon)
@@ -24,7 +36,7 @@ npm run server
 npm run start
 ```
 
-Finally, navigate to `http://localhost:5000/` and you should see the API running!
+Finally, navigate to `http://localhost:11000/` and you should see the API running!
 
 
 ## MongoDB
