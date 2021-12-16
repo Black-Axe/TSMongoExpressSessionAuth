@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import avatar from "./avatar.png";
-import {profile, logout} from "../services/AuthService";
 
-import {  Navigate } from "react-router-dom";
+import {  Navigate, useNavigate } from "react-router-dom";
 import SVG from "react-inlinesvg";
+import { useAuth } from "../context/Auth.context";
 
 // react-bootstrap components
 import {
@@ -20,32 +20,29 @@ import {
 } from "react-bootstrap";
 
 function UserPage() {
+  const {isAuthenticated,logout, profile} = useAuth();
+  console.log(isAuthenticated + "isAuthenticated");
+
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const buffer = (imgString) => {
-    let buff = new Buffer.from((encodeURIComponent(imgString)), 'base64');
-    return buff;
-  };
-
-
+  const navigate = useNavigate();
   useEffect(() => {
-    console.log("UserPage");
-
     async function fetchData() {
-      console.log("fetchData");
       let response = await profile();
       console.log(response);
       if(response.verified){
         setUser(response);
         setLoading(false);
+      }else{
+        console.log("not verified");
+        navigate("/");
       }
 
     }
     fetchData();
-
     return () => {
-      console.log("unmount");
+      //console.log("unmount");
       setLoading(true);
       setUser({});
     };
@@ -53,10 +50,11 @@ function UserPage() {
   }, []);
 
   async function handleSubmit(e) {
+    //logout
     e.preventDefault();
-    console.log("handleSubmit");
     await logout();
-    <Navigate to="/login" replace />
+    navigate("/");
+    
 
 
   };
@@ -187,8 +185,11 @@ function UserPage() {
                         className="btn-fill pull-right"
                         type="submit"
                         variant="info"
+                        onClick={()=>{
+                          navigate("/");
+                        }}
                       >
-                        btn
+                       home
                         
                       </Button>
                       <Button
@@ -232,7 +233,7 @@ function UserPage() {
                       <p className="card-description">{user?.user?.email}</p>
                     </div>
                     <p className="card-description text-center">
-                    {user?.access}
+                    Access Levels: {user?.access}
                     </p>
                   </Card.Body>
                   <Card.Footer>

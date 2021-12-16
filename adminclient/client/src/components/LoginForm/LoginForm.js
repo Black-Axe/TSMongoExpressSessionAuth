@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import {login} from "../../services/AuthService";
+
 import * as Yup from "yup";
 import viewImg from "../img/view.svg";
-
+import {  useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/Auth.context";
 
 const LoginForm =  ({setParentError}) => {
+  const navigate = useNavigate();
+  const {isAuthenticated,login} = useAuth();
 
 
   // for password show hide
@@ -17,16 +20,6 @@ const LoginForm =  ({setParentError}) => {
     setPasswordShown(passwordShown ? false : true);
   };
 
-  useEffect(() => {
-    console.log("useEffect");
-    console.log(login);
-    console.log(setParentError);
-   
-
-
-    
-  }
-  , [])
 
 
 
@@ -41,25 +34,21 @@ const LoginForm =  ({setParentError}) => {
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
-  console.log(errors);
 
   async function onSubmit(data, e) {
-    // display form data on success
-    
-    console.log("Message submited: " + JSON.stringify(data));
-    console.log("dispatching signIn action");
+    console.log("dispatching login from context");
     let username = data.username;
     let password = data.password;
-    console.log(username, password);
-  //  login(name, email, password);
   let response = await login(username, password);
   console.log(response);
-  console.log(response.error);
   if(response.error){
     setParentError(response.error);
   }
   else{
+    console.log("setting current user");
     setParentError("");
+    navigate("/user");
+ 
   }
   
   }

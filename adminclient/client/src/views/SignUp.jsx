@@ -13,7 +13,7 @@ const SignUp = () => {
       <div className="user-data-page clearfix d-lg-flex">
         <div className="illustration-wrapper d-flex align-items-center justify-content-between flex-column">
           <h3 className="font-rubik">
-            We have a “strategic” plan its <br /> called doing things.
+            Regular Sign up
           </h3>
           <div className="illustration-holder">
            

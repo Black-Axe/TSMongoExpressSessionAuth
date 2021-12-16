@@ -28,5 +28,14 @@ router.post("/login", passport_1.default.authenticate("local", {
     failureFlash: true
 }));
 router.post("/register", validators_1.registrationValidation, auth_middlewares_1.registerMiddleware, auth_controller_1.regularRegister);
+router.get("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/logoutsuccess");
+});
+router.get("/logoutsuccess", function (req, res) {
+    res.status(200).send({
+        message: "You have been logged out"
+    });
+});
 exports.default = router;
 //# sourceMappingURL=auth.routes.js.map

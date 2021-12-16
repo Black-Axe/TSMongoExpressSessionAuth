@@ -15,6 +15,7 @@ export interface IUser extends PassportLocalDocument {
       userAccess: IUserType["_id"];
       email: string;
       username: string;
+      avatar: string;
       
 }
 
@@ -37,6 +38,9 @@ const UserSchema: PassportLocalSchema = new Schema({
                   required: true,
             },
             ],
+      avatar: {
+            type: String,
+      },
 });
 
 UserSchema.plugin(passportLocalMongoose);

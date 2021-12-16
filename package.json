@@ -17,6 +17,8 @@
     "dev": "cross-env NODE_ENV=development npm run start"
   },
   "dependencies": {
+    "@dicebear/avatars": "^4.10.1",
+    "@dicebear/avatars-bottts-sprites": "^4.10.1",
     "@types/connect-ensure-login": "^0.1.7",
     "bcryptjs": "^2.4.3",
     "connect-ensure-login": "^0.1.1",

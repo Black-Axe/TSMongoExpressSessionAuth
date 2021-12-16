@@ -18,7 +18,8 @@ export function loginMiddleware(req: Request, res: Response, next: NextFunction)
         .then(user => {
             if(!user) {
                 return res.status(404).json({
-                    message: 'invalid email or password'
+                    message: 'invalid email or password',
+                    error: true
                 });
         }
 
@@ -34,7 +35,8 @@ export async function registerMiddleware(req: Request, res: Response, next: Next
     let potentialUser = await User.findOne({username: req.body.username});
     if(potentialUser) {
         return res.status(422).json({
-            message: 'user already exists'
+            message: 'user already exists',
+            error: true
         });
     }
         next();

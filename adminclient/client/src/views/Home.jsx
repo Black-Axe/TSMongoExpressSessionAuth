@@ -6,8 +6,8 @@ export default function Home() {
             <div>
                   <h1>Home</h1>
                   <Link to="login">login</Link> <br />
-                  <Link to="register">register</Link>
-                  <Link to="profile">user</Link>
+                  <Link to="register">register</Link> <br />
+                  <Link to="profile">user profile(protected)</Link> <br />
 
                   
             </div>

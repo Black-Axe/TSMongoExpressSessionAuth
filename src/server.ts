@@ -14,21 +14,38 @@ const app = express();
 initAndFill();
 
 
-/*
+
 const whiteList = process.env.WHITELISTED_DOMAINS ? process.env.WHITELISTED_DOMAINS.split(',') : [];
 
 
+
+/*
+If you want to allow specific domains to access your API, you can use the following code:
 const corsOptions: cors.CorsOptions = {
       origin: function (origin, callback) {
+            console.log(origin + " is making rquest");
             if (whiteList.indexOf(origin) !== -1) {
                   callback(null, true);
             } else {
                   callback(new Error('Not allowed by CORS'));
             }
-      }
+      },
+      credentials: true,
+      optionsSuccessStatus: 200,
 };
+
+app.use(cors(corsOptions));
 */
-app.use(cors());
+
+app.use(cors({
+      origin: function(origin, callback){
+            //console.log(origin + " is making rquest");
+        return callback(null, true);
+      },
+      optionsSuccessStatus: 200,
+      credentials: true
+    }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 9010);

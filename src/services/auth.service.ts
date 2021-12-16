@@ -2,6 +2,8 @@ import User, {IUser}from "../models/User/User";
 import bcrypt from "bcryptjs";
 import userTypeConfig from "../models/UserType/config";
 import UserType from "../models/UserType/UserType";
+import generateAvatar from "../utils/generateAvatar";
+import passport from "passport";
 
 //return of the function
 interface IReturnRegister{
@@ -18,6 +20,8 @@ export const adminRegistersUser =
 //middlewares will check for admin access level
     async ({email, password, username,accessLevels }:{email:string,password:string,username:string, accessLevels?:string[]}):Promise<IReturnRegister> =>{
         let newUsersAccessLevels = [];
+        let firstUser = false;
+        
         //check if the user already exists
         console.log("properties provided for registration", email, password, username, accessLevels);
 
@@ -27,13 +31,21 @@ export const adminRegistersUser =
             message: "User already exists",
             error: true,
             user: null
-        }}
+        }};
+           //if there are no users in the database, default first user to be admin
+           const count = await User.countDocuments({});
+              if(count === 0){
+                    firstUser = true;
+              };
+   
+
+     
 
 
         //accessLevels will be an array of strings
         //we will convert the strings to the access level object  
         if(!accessLevels || accessLevels.length === 0){ 
-            console.log("no access levels provided");
+            console.log("no access levels provided defaulting to user");
             //if the accessLevels is not provided we will assign the user to the default access level
             let defaultAccessLevel = await UserType.findOne({accessRights: userTypeConfig.user});
             newUsersAccessLevels.push(defaultAccessLevel._id);
@@ -48,21 +60,40 @@ export const adminRegistersUser =
             }
         }
 
+        if(firstUser){
+            console.log("first user is being created");
+            //if the user is the first user in the database, we will assign them the admin access level
+            let adminAccessLevel = await UserType.findOne({accessRights: userTypeConfig.admin});
+            newUsersAccessLevels.push(adminAccessLevel._id);
+        }
+
         //mongoose-local-passport will hash the password and handle it when we register the user
+
+        //generate avatar
+        let avatar = generateAvatar();
 
         //create a new user
         const newUser = new User({
             email,
             username,
-            userAccess: newUsersAccessLevels
+            userAccess: newUsersAccessLevels,
+            avatar
         });
 
 
 
         //register the user
         let registeredUser = await User.register(newUser, password);
-        console.log("user registered" + registeredUser);
+        let regobj = {
+            email: registeredUser.email,
+            username: registeredUser.username,
+            userAccess: registeredUser.userAccess,
+
+        }
+        console.log("user registered");
+        console.log(regobj);
         if(registeredUser){
+
             return{
                 message: "User registered",
                 error: false,

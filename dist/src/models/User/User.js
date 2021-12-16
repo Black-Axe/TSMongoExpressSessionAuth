@@ -23,6 +23,9 @@ const UserSchema = new mongoose_1.Schema({
             required: true,
         },
     ],
+    avatar: {
+        type: String,
+    },
 });
 UserSchema.plugin(passport_local_mongoose_1.default);
 const User = mongoose_1.model("User", UserSchema);

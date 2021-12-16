@@ -3,12 +3,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import viewImg from "../img/view.svg";
-import { useAuth } from "../../context/Auth.context";
-import {  useNavigate } from "react-router-dom";
+import {signup} from "../../services/AuthService";
 
-const SignUpForm = ({setParentError}) => {
-  const {signup} = useAuth();
-  const navigate = useNavigate();
+const AdminSignup = ({setParentError}) => {
 
   // for password show hide
   const [passwordShown, setPasswordShown] = useState(false);
@@ -52,15 +49,10 @@ const SignUpForm = ({setParentError}) => {
     let username = data.username;
     let confirmPassword = data.confirmPassword;
     let response = await signup(email, password, username, confirmPassword);
-    console.log("response on submit", response);
     if(response.error){
       setParentError(response.message);
-    }
-    if(response.verified){
-      console.log("verified");
-      setParentError("");
-      navigate("/user");
-
+    }else{
+      console.log(response);
     }
   }
 
@@ -176,4 +168,4 @@ const SignUpForm = ({setParentError}) => {
   );
 };
 
-export default SignUpForm;
+export default AdminSignup;

@@ -27,7 +27,8 @@ function loginMiddleware(req, res, next) {
         .then(user => {
         if (!user) {
             return res.status(404).json({
-                message: 'invalid email or password'
+                message: 'invalid email or password',
+                error: true
             });
         }
     });
@@ -42,7 +43,8 @@ function registerMiddleware(req, res, next) {
         let potentialUser = yield User_1.default.findOne({ username: req.body.username });
         if (potentialUser) {
             return res.status(422).json({
-                message: 'user already exists'
+                message: 'user already exists',
+                error: true
             });
         }
         next();

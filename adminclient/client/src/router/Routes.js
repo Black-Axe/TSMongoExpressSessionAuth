@@ -6,8 +6,7 @@ import Home from "../views/Home";
 import SignUp from "../views/SignUp";
 
 import UserPage from "../views/UserPage";
-import {profile} from "../services/AuthService";
-import { useAuth } from "../context/Auth";
+import { useAuth } from "../context/Auth.context";
  
 
 import { BrowserRouter, BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
@@ -18,11 +17,14 @@ const AllRoutes = () => {
   const {isAuthenticated} = useAuth();
 
   function RequireAuth({children}) {
+    console.log("user is requiring an authenticed route with an auth state of " + isAuthenticated);
     return isAuthenticated ? children : <Navigate to="/login"  replace/>;
   }
 
   function LoggedIn({children}) {
-    return isAuthenticated ? <Navigate to="/user"/> : children;
+    console.log("checking if user is already logged in, if so will redirect to profile, is user logged in ? " + isAuthenticated);
+    return isAuthenticated ? <Navigate to="/user" replace/> : children;
+    
   }
   
  
@@ -39,13 +41,17 @@ const AllRoutes = () => {
                           </LoggedIn>
                           
                           } />
-                <Route path="/signup" element={<SignUp />} />
+                <Route path="/signup" element={
+                <LoggedIn><SignUp /></LoggedIn>
+                        } />
+                <Route path="/register" element={<LoggedIn><SignUp /></LoggedIn>} />
                 <Route path="/user" element={
                         <RequireAuth children={<UserPage />} />
                 } />
                 <Route path="/profile" element={
                         <RequireAuth children={<UserPage />} />
                 } />
+
             </Routes>
         </BrowserRouter>
     </>

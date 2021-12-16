@@ -13,21 +13,32 @@ const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const app = express_1.default();
 initAndFill_1.default();
-/*
 const whiteList = process.env.WHITELISTED_DOMAINS ? process.env.WHITELISTED_DOMAINS.split(',') : [];
-
-
+/*
+If you want to allow specific domains to access your API, you can use the following code:
 const corsOptions: cors.CorsOptions = {
       origin: function (origin, callback) {
+            console.log(origin + " is making rquest");
             if (whiteList.indexOf(origin) !== -1) {
                   callback(null, true);
             } else {
                   callback(new Error('Not allowed by CORS'));
             }
-      }
+      },
+      credentials: true,
+      optionsSuccessStatus: 200,
 };
+
+app.use(cors(corsOptions));
 */
-app.use(cors_1.default());
+app.use(cors_1.default({
+    origin: function (origin, callback) {
+        //console.log(origin + " is making rquest");
+        return callback(null, true);
+    },
+    optionsSuccessStatus: 200,
+    credentials: true
+}));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 9010);

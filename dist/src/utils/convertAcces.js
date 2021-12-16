@@ -12,20 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userProfile = void 0;
-const convertAcces_1 = __importDefault(require("../utils/convertAcces"));
-function userProfile(req, res, next) {
+const UserType_1 = __importDefault(require("../models/UserType/UserType"));
+function convertAccess(access) {
     return __awaiter(this, void 0, void 0, function* () {
-        let user = req.user;
-        //get id from req.sessionID
-        res.status(200).send({
-            verified: true,
-            message: "welcome to your profile",
-            user: user,
-            session: req.sessionID,
-            access: yield convertAcces_1.default(user.userAccess)
-        });
+        let stringedAccess = [];
+        for (let i = 0; i < access.length; i++) {
+            let accessId = access[i];
+            //find the access type from the mongoid
+            let accessType = yield UserType_1.default.findById(accessId);
+            //console.log(accessType.accessRights);
+            if (accessType) {
+                stringedAccess.push(accessType.accessRights);
+            }
+        }
+        return stringedAccess;
     });
 }
-exports.userProfile = userProfile;
-//# sourceMappingURL=user.controller.js.map
+exports.default = convertAccess;
+//# sourceMappingURL=convertAcces.js.map

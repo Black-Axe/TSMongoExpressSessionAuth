@@ -36,5 +36,16 @@ router.post("/login", passport.authenticate("local", {
 
 router.post("/register", registrationValidation, registerMiddleware, regularRegister);
 
+router.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/logoutsuccess");
+})
+
+router.get("/logoutsuccess", function(req, res) {
+    res.status(200).send({
+        message: "You have been logged out"
+    });
+})
+
 
 export default router;
