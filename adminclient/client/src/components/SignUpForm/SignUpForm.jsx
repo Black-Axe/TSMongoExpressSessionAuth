@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import viewImg from "../img/view.svg";
+import {signup} from "../../services/AuthService";
 
-const SignUpForm = () => {
+const SignUpForm = ({setParentError}) => {
+
   // for password show hide
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
@@ -19,7 +21,7 @@ const SignUpForm = () => {
 
   // for validation
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
+    username: Yup.string().required("Username is required"),
     email: Yup.string()
       .required("Email is required")
       .email("Entered value does not match email format"),
@@ -40,10 +42,18 @@ const SignUpForm = () => {
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  function onSubmit(data, e) {
+  async function onSubmit(data, e) {
     // display form data on success
-    console.log("Message submited: " + JSON.stringify(data));
-    e.target.reset();
+    let email = data.email;
+    let password = data.password;
+    let username = data.username;
+    let confirmPassword = data.confirmPassword;
+    let response = await signup(email, password, username, confirmPassword);
+    if(response.error){
+      setParentError(response.message);
+    }else{
+      console.log(response);
+    }
   }
 
   return (
@@ -52,39 +62,33 @@ const SignUpForm = () => {
         <div className="row">
           <div className="col-12">
             <div className="input-group-meta mb-50">
-              <label>Name</label>
+              <label>Username</label>
+              {<p className="form-error">{errors.username?.message}</p>}
               <input
                 type="text"
-                placeholder="Enter Full Name"
-                name="name"
-                {...register("name")}
+                placeholder="Enter username"
+                {...register("username")}
                 className={` ${errors.name ? "is-invalid" : ""}`}
               />
 
-              {errors.name && (
-                <div className="invalid-feedback">{errors.name?.message}</div>
-              )}
             </div>
           </div>
           <div className="col-12">
             <div className="input-group-meta mb-50">
               <label>Email</label>
+              {<p className="form-error">{errors.email?.message}</p>}
               <input
                 placeholder="Enter Your Email"
-                name="email"
                 type="text"
                 {...register("email")}
                 className={` ${errors.email ? "is-invalid" : ""}`}
               />
-
-              {errors.email && (
-                <div className="invalid-feedback">{errors.email?.message}</div>
-              )}
             </div>
           </div>
           <div className="col-12">
             <div className="input-group-meta mb-50">
               <label>Password</label>
+              {<p className="form-error">{errors.password?.message}</p>}
               <input
                 placeholder="Enter Password"
                 name="password"
@@ -92,12 +96,7 @@ const SignUpForm = () => {
                 {...register("password")}
                 className={` ${errors.password ? "is-invalid" : ""}`}
               />
-              {errors.password && (
-                <div className="invalid-feedback">
-                  {errors.password?.message}
-                </div>
-              )}
-              {/* End error msg */}
+
               <span
                 className="placeholder_icon"
                 onClick={togglePasswordVisiblity}
@@ -116,19 +115,13 @@ const SignUpForm = () => {
           <div className="col-12">
             <div className="input-group-meta mb-25">
               <label>Re-type Password</label>
+              {<p className="form-error">{errors.confirmPassword?.message}</p>}
               <input
                 placeholder="Enter Password"
-                name="confirmPassword"
                 type={rePasswordShown ? "text" : "password"}
                 {...register("confirmPassword")}
                 className={` ${errors.confirmPassword ? "is-invalid" : ""}`}
               />
-              {errors.confirmPassword && (
-                <div className="invalid-feedback">
-                  {errors.confirmPassword?.message}
-                </div>
-              )}
-              {/* End error msg */}
               <span
                 className="placeholder_icon"
                 onClick={toggleRePasswordVisiblity}
@@ -148,7 +141,6 @@ const SignUpForm = () => {
             <div className="agreement-checkbox d-flex justify-content-between align-items-center sm-mt-10">
               <div className="position-relative">
                 <input
-                  name="acceptTerms"
                   type="checkbox"
                   {...register("acceptTerms")}
                   id="acceptTerms"
@@ -159,11 +151,7 @@ const SignUpForm = () => {
                   By clicking "SIGN UP" I agree to the Terms and Conditions and
                   Privacy Policy.
                 </label>
-                {errors.acceptTerms && (
-                  <div className="invalid-feedback">
-                    {errors.acceptTerms?.message}
-                  </div>
-                )}
+                <p className="form-error">{errors.acceptTerms?.message}</p>
               </div>
             </div>
             {/* /.agreement-checkbox */}

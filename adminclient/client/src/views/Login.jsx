@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import useDocumentTitle from "../components/useDocumentTitle/useDocumentTitle.js";
 import { Link } from "react-router-dom";
 import LoginForm from "../components/LoginForm/LoginForm.js";
@@ -6,18 +6,16 @@ import genericLogo from "./images/logo/genericLogo.png";
 import { useSelector } from 'react-redux';
 
 const Login = () => {
-  console.log("Login");
-  console.log(process.env.REACT_APP_API_LOGIN);
-  let user = useSelector(state => state.user.user);
+  const [parentError, setParentError] = useState("");
 
-  useDocumentTitle("BlackAxe");
+  useDocumentTitle("Login");
   return (
     <div className="main-page-wrapper p0">
       <div className="user-data-page clearfix d-lg-flex">
         <div className="illustration-wrapper d-flex align-items-center justify-content-between flex-column">
           <h3 className="font-rubik">
             Welcome back, {
-              user?.email
+              
               
             }
             
@@ -54,9 +52,10 @@ const Login = () => {
                <Link to="/signup">Sign Up</Link>
               
             </p>
+            <p className="login-err">{parentError? parentError : ""}</p>
           </div>
 
-          <LoginForm />
+          <LoginForm setParentError={setParentError}/>
           {/* Login Form End */}
           <p className="text-center font-rubik copyright-text">
             Copyright @{new Date().getFullYear()}{" "}

@@ -4,10 +4,13 @@ import './index.css';
 import "../src/assets/main.scss"
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {UserProvider} from "./context/Auth";
 ReactDOM.render(
 
   <React.StrictMode>
+    <UserProvider>
     <App />
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import useDocumentTitle from "../components/useDocumentTitle/useDocumentTitle.js";
 import { Link } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm/SignUpForm.jsx";
@@ -6,6 +6,8 @@ import genericLogo from "./images/logo/genericLogo.png";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");
+  const [parentError, setParentError] = useState("");
+
   return (
     <div className="main-page-wrapper p0">
       <div className="user-data-page clearfix d-lg-flex">
@@ -37,7 +39,9 @@ const SignUp = () => {
               Already have an account? <Link to="/login">Login</Link>
             </p>
           </div>
-          <SignUpForm />
+
+          <p className="login-err">{parentError? parentError : ""}</p>
+          <SignUpForm setParentError={setParentError} />
           {/* End Signup Form */}
           <p className="text-center font-rubik copyright-text">
             Copyright @{new Date().getFullYear()}{" "}

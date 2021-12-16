@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import {login} from "../../services/AuthService";
 import * as Yup from "yup";
 import viewImg from "../img/view.svg";
 
-const LoginForm = () => {
+
+const LoginForm =  ({setParentError}) => {
+
+
   // for password show hide
   const [passwordShown, setPasswordShown] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
   useEffect(() => {
     console.log("useEffect");
+    console.log(login);
+    console.log(setParentError);
    
 
 
@@ -24,9 +32,8 @@ const LoginForm = () => {
 
   // for validation
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Entered value does not match email format"),
+    username: Yup.string()
+      .required("Username is required"),
     password: Yup.string().required("Password is required"),
   });
 
@@ -38,30 +45,39 @@ const LoginForm = () => {
 
   async function onSubmit(data, e) {
     // display form data on success
+    
     console.log("Message submited: " + JSON.stringify(data));
     console.log("dispatching signIn action");
-    let name = "test";
-    let email = data.email;
+    let username = data.username;
     let password = data.password;
-    console.log(name, email, password);
-
+    console.log(username, password);
+  //  login(name, email, password);
+  let response = await login(username, password);
+  console.log(response);
+  console.log(response.error);
+  if(response.error){
+    setParentError(response.error);
+  }
+  else{
+    setParentError("");
+  }
   
   }
 
   return (
     <>
+    
       <form onSubmit={handleSubmit(onSubmit)} className="user-data-form ">
         <div className="row">
           <div className="col-12">
             <div className="input-group-meta mb-80 sm-mb-70">
-              <label>Email</label>
-              {<p className="form-error">{errors.email?.message}</p>}
+              <label>Username</label>
+              {<p className="form-error">{errors.username?.message}</p>}
               <input
-                placeholder="Enter Your Email"
-                name="email"
+                placeholder="Enter Your Username"
                 type="text"
-                {...register("email")}
-                className={` ${errors.email ? "is-invalid" : ""}`}
+                {...register("username")}
+                className={` ${errors.username ? "is-invalid" : ""}`}
               />
             </div>
           </div>
@@ -71,7 +87,6 @@ const LoginForm = () => {
               {<p className="form-error">{errors.password?.message}</p>}
               <input
                 placeholder="Enter Password"
-                name="password"
                 type={passwordShown ? "text" : "password"}
                 {...register("password")}
                 className={` ${errors.password ? "is-invalid" : ""}`}
