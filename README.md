@@ -1,5 +1,8 @@
 ### MongoDB TypeScript Passport-Session backend with React front-end client
 
+![LoginExample](./repo/loginexample.png "Login Example")
+![Profile Example](./repo/uiprofile.png "Profile Example")
+
 #### Features:
 <ul>
 <li>Typescript</li>
