@@ -18,13 +18,15 @@ function convertAccess(access) {
         let stringedAccess = [];
         for (let i = 0; i < access.length; i++) {
             let accessId = access[i];
+            // console.log("accessId: ", accessId);
             //find the access type from the mongoid
             let accessType = yield UserType_1.default.findById(accessId);
-            //console.log(accessType.accessRights);
+            // console.log("accessType: ", accessType);
             if (accessType) {
                 stringedAccess.push(accessType.accessRights);
             }
         }
+        //  console.log("stringedAccess: ", stringedAccess);
         return stringedAccess;
     });
 }

@@ -41,22 +41,24 @@ function regularRegister(req, res, next) {
         else {
             let returnUser = registered.user;
             // need to login the user as well
-            req.login(returnUser, (err) => {
+            req.login(returnUser, (err) => __awaiter(this, void 0, void 0, function* () {
                 if (err) {
                     res.status(400).send(err);
                 }
                 else {
+                    let accessConverted = yield convertAcces_1.default(returnUser.userAccess);
+                    console.log("access converted is " + accessConverted);
                     res.status(200).send({
                         message: "User registered successfully",
                         verified: true,
                         user: {
                             username: returnUser.username,
                             email: returnUser.email,
-                            accessLevels: convertAcces_1.default(returnUser.userAccess),
+                            accessLevels: accessConverted,
                         }
                     });
                 }
-            });
+            }));
         }
         ;
     });

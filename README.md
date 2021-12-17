@@ -13,6 +13,14 @@
 <li>Passport</li>
 </ul>
 
+#### Overview
+MongoDB must be setup and running for the server to connect. A default string is provided, in config, but can be reconfigured. MongoDB automatically creates the collections for you.
+
+A function is provided that populates the database with usertpes, that is used for access later.
+
+A client UI is provided in React, where navigating to ```adminclient/``` and running ```npm install```, where stat up the UI. The first user created is given an admin status, where the server handles the logic. 
+
+
 
 
 # Prerequisites
@@ -34,6 +42,24 @@ npm run server
 
 ```
 npm run start
+
+```
+- Compile
+
+```
+npm run compile
+```
+
+- Run in dev
+
+```
+npm run dev
+```
+
+- Run in production
+
+```
+npm run production
 ```
 
 Finally, navigate to `http://localhost:11000/` and you should see the API running!
@@ -42,55 +68,30 @@ Finally, navigate to `http://localhost:11000/` and you should see the API runnin
 ## MongoDB
 Put the MongoURI string into the default.json file located in ```/config```
 
-The app uses a function called ```initAndPopulateDB()``` located in the server file, that populates the database with user data types only once. (Checks if the database already has data and wont update on subsequent runs)
+The app uses a function called ```initAndFill()``` located in the server file, that populates the database with user data types only once. (Checks if the database already has data and wont update on subsequent runs)
+
+
 
 ## Models
 ```User``` 
 ```typescript 
-//Interface to model the user Schema for TypeScript.
+//Interface to model the user Schema for TypeScript. Includes an avatar string (svg) created with a util function upon registration
 @param email:string
-@param password:string
+@param username:string
 @param avatar:string
-@param userType:ref=> UserType._id
+@param userAccess:ref=> [UserType._id]
 
  ```
  
 ```UserType``` 
 ```typescript
-//Interface to model the user type Schema for TypeScript.
+//Interface to model the user type Schema for TypeScript. There is a config to instantiate and fill the database with default types const userTypes = {
+//      admin: "admin",
+//      user: "user",
+//      moderator: "moderator",
+//      banned: "banned",
+//  };
 @param accessRights:string
- ```
-
-```Post``` 
-```typescript
-//Interface to model the Post Type schema for TypeScript.
- * @param title:string
- * @param content:string
- * @param author: ref => User._id
- * @param createdAt:Date
- * @param updatedAt:Date
- ```
-
-```AccessToken``` 
-```typescript
-//Interface to model the access token schema for TypeScript.
- * @param token:string
- * @param user: ref => User._id
- * @param expiration:Date 
- * @param createdAt:Date
- * @param updatedAt:Date
- * @param refreshToken: ref => RefreshToken._id
- * @param history: string[]
- ```
-```Refresh Token``` 
-```typescript
-//Interface to model the RefreshToken Schema for TypeScript.
- * @param token:string
- * @param user: ref => User._id
- * @param expiration:Date 
- * @param createdAt:Date
- * @param updatedAt:Date
- * @param valid: boolean
  ```
 
 
@@ -98,21 +99,21 @@ The app uses a function called ```initAndPopulateDB()``` located in the server f
 ## Routes
 
 #### Register
-###### **Requires email and password and passwordConfirm
+###### **Requires email and password and passwordConfirm and username
 ###### ***Middleware handles validation
-###### ****Controller also sets cookies
+###### ****Passport handles session storage with connect-mongo
 | Route | Description|
 | -----|-----|
-| **POST /register**| Create new user from email and password|
+| **POST /register**| Create new user from username, email and password|
 
-`POST localhost:5000/register`
+`POST localhost:11000/register`
 ```json
 
-{
-  "email": "sample@gmail.com",
+{"email": "sample@gmail.com",
+  "username":"test",
   "password": "123456",
-  "passwordConfirm":"123456",
-}
+  "confirmPassword":"123456"
+  }
 ```
 
 `Response`

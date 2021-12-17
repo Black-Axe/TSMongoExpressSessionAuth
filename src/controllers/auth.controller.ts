@@ -25,17 +25,19 @@ export async function regularRegister(req:Request, res:Response, next:NextFuncti
         let returnUser = registered.user;
 
             // need to login the user as well
-            req.login(returnUser, (err) => {
+            req.login(returnUser, async(err) => {
                 if(err){
                     res.status(400).send(err);
                 }else{
+                    let accessConverted = await convertAccess(returnUser.userAccess);
+                    console.log("access converted is " + accessConverted);
                     res.status(200).send({
                         message: "User registered successfully",
                         verified: true,
                         user:{
                             username: returnUser.username,
                             email: returnUser.email,
-                            accessLevels: convertAccess(returnUser.userAccess),
+                            accessLevels: accessConverted,
                         }
                     });
                 }
