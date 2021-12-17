@@ -42,7 +42,6 @@ npm run server
 
 ```
 npm run start
-
 ```
 - Compile
 
@@ -119,65 +118,122 @@ The app uses a function called ```initAndFill()``` located in the server file, t
 `Response`
 ```json
 {
-    "user": "61a69c3975d6e0cd34b23f4f",
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYxYTY5YzM5NzVkNmUwY2QzNGIyM2Y0ZiJ9LCJpYXQiOjE2MzgzMDg5MjIsImV4cCI6MTYzODkxMzcyMn0.0tRxp_Fc_BSrjmBydMgdQuocLVwD0Q0Rpx6qdPY75XA",
-    "refreshToken": "@@rt-a558f8b1-ea6a-4d43-903b-9407866a7bb6-db9337ec61-af6b90cd-c123-4f71-9605-9a315341d3f8@@",
-    "accessTokenExpiration": "12/7/2021, 4:48:42 PM",
-    "refreshTokenExpiration": "1/29/2022, 4:48:42 PM"
-}
-```
-
-#### Posts
-###### ***Middleware handles validation
-| Route | Description|
-| -----|-----|
-| **POST /posts**| Create new post from middlewares token|
-| **GET /posts**| Get personal users posts from access token in middleware|
-| **GET /posts/{id}**| Get post with id|
-`POST localhost:5000/posts`
-```json
-{
-    "title":"title",
-    "content":"jajamaru"
-}
-```
-`Response`
-```json
-{
-    "_id": "61a6ab3ba7278cd1a08149b4",
-    "title": "title",
-    "content": "jajamaru",
-    "author": "61a69c3975d6e0cd34b23f4f",
-    "createdAt": "2021-11-30T22:52:43.412Z",
-    "updatedAt": "2021-11-30T22:52:43.412Z",
-    "__v": 0
-}
-```
-#### Tokens
-###### ***Middleware handles validation
-###### ***Middleware also checks for and sets cookies
-| Route | Description|
-| -----|-----|
-| **POST /token**| Grants new tokens from email and password|
-| **POST /refresh**| Grants new tokens from refresh token|
-`POST localhost:5000/token/refresh`
-
-`
-***Middleware searches headers/params/cookies for token***
-`
-
-`Response`
-```json
-{
-    "grandToken": {
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYxYTY5YzM5NzVkNmUwY2QzNGIyM2Y0ZiJ9LCJpYXQiOjE2MzgzMTI5NDQsImV4cCI6MTYzODkxNzc0NH0.RixKAD-RslyRriTxvrbbAWHxbJAly7RcGHiclgMn8fA",
-        "refreshToken": "@@rt-279659df-f8ca-41bf-a631-e3517455ba04-3ba8411b18-fa5b1b92-96c9-48a1-915e-591279ef0165@@",
-        "user": "61a69c3975d6e0cd34b23f4f",
-        "accessTokenExpiration": "12/7/2021, 5:55:44 PM",
-        "refreshTokenExpiration": "1/29/2022, 5:59:31 PM"
+    "message": "User registered successfully",
+    "verified": true,
+    "user": {
+        "username": "test",
+        "email": "sample@gmail.com",
+        "accessLevels": [
+            "user",
+            "admin"
+        ]
     }
 }
 ```
+
+#### SudoRegister
+###### ***Middleware handles validation
+| Route | Description|
+| -----|-----|
+| **POST /sudoregister**| Create new user requiring an admin status to access|
+
+```json
+{
+  "email": "sampleAdmin@gmail.com",
+  "username":"test1",
+  "password": "123456",
+  "confirmPassword":"123456",
+  "accessLevels":["admin","moderator","user"]
+  }
+```
+`Response`
+```json
+{
+   
+    "message": "User registered",
+    "error": false,
+    "user": {
+        "email": "sampleAdmin@gmail.com",
+        "username": "test1",
+        "userAccess": [
+            "61b96634b752f03f85063594",
+            "61b96634b752f03f8506359a",
+            "61b96634b752f03f85063598"
+        ],
+        ...
+    }
+}
+```
+#### Login
+###### ***Middleware handles validation
+###### ***Passport also handles validation and signing in
+| Route | Description|
+| -----|-----|
+| **POST /login**| Logs user in if validated|
+
+```json
+{
+  "username":"test1",
+  "password": "123456",
+  "confirmPassword":"123456"
+}
+```
+
+`Response`
+```json
+{
+    "verified": true,
+    "message": "welcome to your profile",
+    "user": {
+        "_id": "61bc000948ada14844b7a840",
+        "email": "sampleAdmin@gmail.com",
+        "username": "test1",
+        "userAccess": [
+            "61b96634b752f03f85063594",
+            "61b96634b752f03f8506359a",
+            "61b96634b752f03f85063598"
+        ],
+        ...
+}
+```
+#### Logout
+###### ***Passport handles
+| Route | Description|
+| -----|-----|
+| **get /logout**| Logs user out if validated|
+
+
+`Response`
+```json
+{
+    "message": "You have been logged out"
+}
+```
+
+#### Profile
+###### ***Passport handles ensuring user is logged in
+| Route | Description|
+| -----|-----|
+| **get /profile**|If user is logged in, retrieve profile|
+
+
+`Response`
+```json
+{
+    "verified": true,
+    "message": "welcome to your profile",
+    "user": {
+        "_id": "61bc000948ada14844b7a840",
+        "email": "sampleAdmin@gmail.com",
+        "username": "test1",
+        "userAccess": [
+            "61b96634b752f03f85063594",
+            "61b96634b752f03f8506359a",
+            "61b96634b752f03f85063598"
+            ...
+}
+```
+
 
 
 
@@ -191,17 +247,19 @@ The full folder structure of this app is explained below:
 
 | Name               | Description                                                                                                                                                   |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **adminclient**         | Client UI in React for registering/login/viewing profile                                                        |
 | **config**         | Contains config environment to be used by the config package, such as MongoDB URI, jwtSecret, and etc.                                                        |
 | **dist**           | Contains the distributable (or output) from your TypeScript build                                                                                             |
 | **node_modules**   | Contains all your npm dependencies                                                                                                                            |
 | **src**            | Contains your source code that will be compiled to the dist dir                                                                                               |
-| **src/database** | Contains the initial data population for database and database connection                                                                                                                |
-| **src/helpers** | Contains the helpers for validating Mongo ID's and user as well as finding token location and setting cookies and generating hashed password                                                                                    |
-| **src/middleware** | Contains middleware for login, registration and authentication. Checks for validation of values and for locations of tokens and validity of bearer tokens                                                                     |
-| **src/models**     | Models defined are User, UserType, Post, AccessToken, RefreshToken                                          |
-| **src/routes**     | Endpoints are /register, /auth, /posts, /token                                                           |
-| **src/services**     | Contains token service to handle logic pertaining to accessing tokens from database, creating new tokens and storing in database, and altering validity of tokens in database                                        |
-| **src/utils**     | Contains utility functions designed to help with generating an avatar for the user as well as converting the user to a payload object for signing a new access token                                       |
+| **src/controllers** | Contains the controllers for viewing profile/ signing up/ logging in/ logging out   
+| **src/database** | Contains the initial data population for database and database connection                                                                                                                                                                                              |
+| **src/middleware** | Contains middleware for login, registration and authentication. Checks for validation of values and handles appropriate responses                                                                |
+| **src/models**     | Models defined are User, UserType                                     |
+| **src/passport**     | Passport config for user auth                                      |
+| **src/routes**     | Contains routing logic for routes defined earlier                                                           |
+| **src/services**     | Handles communicating to our database                                     |
+| **src/utils**     | Contains utility functions designed to help with generating an avatar for the user as well as converting the user access types to readable string types                                     |
 | **src/server.ts**  | Entry point to your express app                                                                                                                               |
 | package.json       | File that contains npm dependencies as well as build scripts                                                  |
 | tsconfig.json      | Config settings for compiling server code written in TypeScript                                                                                               |
@@ -270,6 +328,10 @@ Below is a list of all the scripts this template has available:
 | `watch-deploy` | Runs node on `dist/server.js` which is the app's entry point, with auto reload.               |
 | `server`       | Transpiles TypeScript codes to JavaScript then run node on `dist/server.js` with auto reload. |
 | `start`        | Transpiles TypeScript codes to JavaScript then run node on `dist/server.js`.                  |
+| `compile`        | Transpiles TypeScript codes to JavaScript while also removing the old dist folder using rimraf`.                  |
+| `production`        | Runs app in production`.                  |
+| `dev`        | Runs app in dev
+
 
 Since we're developing with TypeScript, it is important for the codes to be transpiled first to JavaScript before running the node server. It is best to deploy the app using: `npm run server` or `npm run start` command.
 
