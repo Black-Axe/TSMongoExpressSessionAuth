@@ -197,6 +197,7 @@ The app uses a function called ```initAndFill()``` located in the server file, t
             "61b96634b752f03f85063598"
         ],
         ...
+    }
 }
 ```
 #### Logout
@@ -234,6 +235,7 @@ The app uses a function called ```initAndFill()``` located in the server file, t
             "61b96634b752f03f8506359a",
             "61b96634b752f03f85063598"
             ...
+    }
 }
 ```
 
