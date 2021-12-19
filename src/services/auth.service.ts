@@ -12,10 +12,9 @@ interface IReturnRegister{
     message: string;
 }
 
-//this will be used to create a new user by the admin
-//we include the access levels for the function that the admin will assign for the user
-//there will be another function that a regular user will use to register 
-//where they will be assigned the access level of the user
+//this will be used to create a new user by the admin or a user
+//we include the access levels for the function that are optional
+//in our middlewares we will check if the user has the right access level if needed
 export const adminRegistersUser = 
 //middlewares will check for admin access level
     async ({email, password, username,accessLevels }:{email:string,password:string,username:string, accessLevels?:string[]}):Promise<IReturnRegister> =>{
@@ -37,10 +36,6 @@ export const adminRegistersUser =
               if(count === 0){
                     firstUser = true;
               };
-   
-
-     
-
 
         //accessLevels will be an array of strings
         //we will convert the strings to the access level object  
@@ -79,9 +74,6 @@ export const adminRegistersUser =
             userAccess: newUsersAccessLevels,
             avatar
         });
-
-
-
         //register the user
         let registeredUser = await User.register(newUser, password);
         let regobj = {
@@ -106,10 +98,4 @@ export const adminRegistersUser =
                 user: null
             }
         }
-    
-
-
-        
-
-
 };

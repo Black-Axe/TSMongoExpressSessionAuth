@@ -7,6 +7,7 @@ import passportLocalMongoose from "passport-local-mongoose";
  * @param email: string
  * @param username: string
  * @param userAccess: ref => [ UserType._id]
+ * @param avatar: string
  */
 
 //passport-local-mongoose will handle the password and hashing

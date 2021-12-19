@@ -1,6 +1,5 @@
 import {adminRegistersUser} from '../services/auth.service';
 import {Request, Response, NextFunction} from 'express';
-import { IUser } from '../models/User/User';
 import convertAccess from '../utils/convertAcces';
 
 export async function SUDO_REGISTER(req:Request, res:Response, next:NextFunction) {
@@ -16,9 +15,6 @@ export async function regularRegister(req:Request, res:Response, next:NextFuncti
     console.log("received request to register user: ", username, password, email);
     let registered = await adminRegistersUser({username, password, email});
     //login the user
-
-
-
     if(registered.error){
         res.status(400).send(registered);
     }else{
@@ -42,9 +38,5 @@ export async function regularRegister(req:Request, res:Response, next:NextFuncti
                     });
                 }
             });
-
-
-
-        
     };                   
 }

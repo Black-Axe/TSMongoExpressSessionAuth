@@ -1,6 +1,4 @@
-import {adminRegistersUser} from '../services/auth.service';
 import {Request, Response, NextFunction} from 'express';
-import UserType from "../models/UserType/UserType";
 import { IUser } from '../models/User/User';
 import convertAccess from '../utils/convertAcces';
 

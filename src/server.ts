@@ -3,7 +3,6 @@ import express from 'express';
 import initAndFill from './database/initAndFill';
 import initPassportAndSessions from './passport/passport.sessions.config';
 import routerInit from './routes/router';
-import flash from 'connect-flash';
 import dotenv from 'dotenv';
 import cors from 'cors';
 

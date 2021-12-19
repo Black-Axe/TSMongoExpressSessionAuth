@@ -1,7 +1,6 @@
 import { NextFunction } from "express";
 import { Request, Response } from "express";
-import validator from 'express-validator';
-import {check, validationResult} from 'express-validator/check';
+import {validationResult} from 'express-validator/check';
 import User, { IUser } from "../models/User/User";
 import UserType from "../models/UserType/UserType";
 import accessRIGHTS from "../models/UserType/config";

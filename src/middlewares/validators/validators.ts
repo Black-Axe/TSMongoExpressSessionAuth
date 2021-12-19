@@ -2,6 +2,7 @@ import validator from 'express-validator';
 import {check, validationResult} from 'express-validator/check';
 
 export const registrationValidation = [
+    check("username", "username is required").not().isEmpty().isLength({min: 3}).withMessage("username must be at least 3 characters long"),
     check("email", "email is required").not().isEmpty().isEmail().withMessage("email is invalid"),
     check("password", "password is required").not().isEmpty().isLength({min: 6}).withMessage("password must be at least 6 characters long"),
     check("confirmPassword", "password confirmation is required").not().isEmpty().custom((value, {req}) => {
@@ -10,8 +11,8 @@ export const registrationValidation = [
         }
         return true;
     }
-    ),
-    check("username", "username is required").not().isEmpty().isLength({min: 3}).withMessage("username must be at least 3 characters long"),
+    )
+   
 
 ];
 
