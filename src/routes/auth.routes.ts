@@ -1,9 +1,10 @@
 import express from "express";
 import passport from "passport";
 import connectEnsureLogin from "connect-ensure-login";
-import {SUDO_REGISTER, regularRegister} from "../controllers/auth.controller";
-import {SUDOMiddleware, registerMiddleware} from "../middlewares/auth.middlewares";
-import { registrationValidation,SUDOOptionalUserAccessLevel } from "../middlewares/validators/validators";
+import {SUDO_REGISTER, regularRegister, resetPassword, verifyResetToken} from "../controllers/auth.controller";
+import {SUDOMiddleware, registerMiddleware, resetPassMiddleWare} from "../middlewares/auth.middlewares";
+import { registrationValidation,SUDOOptionalUserAccessLevel, resetPassValidation } from "../middlewares/validators/validators";
+
 
 
 const router = express.Router();
@@ -47,5 +48,11 @@ router.get("/logoutsuccess", function(req, res) {
     });
 })
 
+router.post("/resetPassword", resetPassValidation, resetPassMiddleWare, resetPassword);
+
+
+
+//this is what our frontend client will use to call the server and get the user to change their password
+router.get("/verifyResetToken/:resetToken", verifyResetToken);
 
 export default router;

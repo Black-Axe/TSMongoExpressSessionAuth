@@ -6,6 +6,7 @@ import Home from "../views/Home";
 import SignUp from "../views/SignUp";
 
 import UserPage from "../views/UserPage";
+import ResetPage from "../views/ResetPage";
 import { useAuth } from "../context/Auth.context";
  
 
@@ -51,6 +52,8 @@ const AllRoutes = () => {
                 <Route path="/profile" element={
                         <RequireAuth children={<UserPage />} />
                 } />
+
+                <Route path="/reset/:resettoken" element={<ResetPage />} />
 
             </Routes>
         </BrowserRouter>

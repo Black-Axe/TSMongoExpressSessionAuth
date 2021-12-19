@@ -1,5 +1,5 @@
 import validator from 'express-validator';
-import {check, validationResult} from 'express-validator/check';
+import {check, oneOf, validationResult} from 'express-validator/check';
 
 export const registrationValidation = [
     check("username", "username is required").not().isEmpty().isLength({min: 3}).withMessage("username must be at least 3 characters long"),
@@ -34,3 +34,11 @@ export const SUDOOptionalUserAccessLevel = [
     }
     ),
 ];
+
+export const resetPassValidation = [
+    //check for email or username
+    oneOf([
+        check("email", "email is required").not().isEmpty().isEmail().withMessage("email is invalid"),
+        check("username", "username is required").not().isEmpty().withMessage("username is invalid")
+    ]),
+]
