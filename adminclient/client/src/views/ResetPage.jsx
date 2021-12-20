@@ -5,9 +5,25 @@ import ResetForm from "../components/ResetPassForm/ResetForm.js";
 import genericLogo from "./images/logo/genericLogo.png";
 import {useParams} from "react-router-dom";
 
+let APIURL = process.env.REACT_APP_API_VERIFY_RESET;
+
 const ResetPage = () => {
       let {resettoken} = useParams();
       console.log(resettoken);
+      console.log(APIURL);
+      useEffect(() => {
+        //validate the token from the server
+        async function validateToken() {
+          const response = await fetch(`${APIURL}/${resettoken}`);
+          const data = await response.json();
+          if (data.error) {
+            console.log(data.error);
+          }
+          console.log(data);
+        }
+        validateToken();
+
+      } , [resettoken]);
   const [parentError, setParentError] = useState("");
 
   useDocumentTitle("Reset Password");

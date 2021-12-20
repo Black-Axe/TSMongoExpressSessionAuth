@@ -1,5 +1,4 @@
-import validator from 'express-validator';
-import {check, oneOf, validationResult} from 'express-validator/check';
+import {check, oneOf} from 'express-validator';
 
 export const registrationValidation = [
     check("username", "username is required").not().isEmpty().isLength({min: 3}).withMessage("username must be at least 3 characters long"),
