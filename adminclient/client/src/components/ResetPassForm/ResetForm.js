@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import viewImg from "../img/view.svg";
-import { useAuth } from "../../context/Auth.context";
 import {  useNavigate } from "react-router-dom";
 
 const ResetForm = ({setParentError, resetToken}) => {

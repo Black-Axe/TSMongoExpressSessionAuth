@@ -44,7 +44,9 @@ export const resetPassRequestValidation = [
 
 export const resetPasswordValidation = [
     check("resetToken", "resetToken is required").not().isEmpty(),
-    check("password", "password is required").not().isEmpty().isLength({min: 6}).withMessage("password must be at least 6 characters long"),
+    check("password", "password is required").not()
+            .isEmpty().isLength({min: 6}).
+                withMessage("password must be at least 6 characters long"),
     check("confirmPassword", "password confirmation is required").not().isEmpty().custom((value, {req}) => {
         if (value !== req.body.password) {
             throw new Error("Passwords do not match");

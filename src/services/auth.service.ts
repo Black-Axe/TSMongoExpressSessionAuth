@@ -117,7 +117,6 @@ export const resetPassword = async ({
     user,
     newPassword,
 }: { user: string, newPassword: string }): Promise<IReturnReset> => {
-
     //reset the users password
     let userToReset = await User.findOne({ _id: user });
     if (!userToReset) {
@@ -126,10 +125,8 @@ export const resetPassword = async ({
             error: true
         }
     }
-
     userToReset.setPassword(newPassword, (err) => {
         if (err) {
-            console.log(err);
             return {
                 message: "error resetting password",
                 error: true
@@ -137,11 +134,9 @@ export const resetPassword = async ({
         }
         userToReset.save();
     });
-
     console.log("password reset");
     return {
         message: "password successfully reset",
         error: false
     }
-
 }

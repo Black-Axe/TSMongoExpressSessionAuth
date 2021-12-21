@@ -7,13 +7,11 @@ import accessRIGHTS from "../models/UserType/config";
 import { verifyJWTToken } from "../services/resettoken.service";
 import ResetToken, { IResetToken } from "../models/ResetToken/ResetToken";
 
-
 export function loginMiddleware(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
-
     //make sure user exists
     User.findOne({username: req.body.username})
         .then(user => {
@@ -23,9 +21,7 @@ export function loginMiddleware(req: Request, res: Response, next: NextFunction)
                     error: true
                 });
         }
-
     });
-    
 }
 
 export async function registerMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -46,12 +42,10 @@ export async function registerMiddleware(req: Request, res: Response, next: Next
 export async function SUDOMiddleware(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        //çconsole.log(errors.array());
         return res.status(422).json({ errors: errors.array() });
     }
-
     //check if user is admin
-    //he should be logged in so we can get the user from the request
+    //they should be logged in so we can get the user from the request
     const user = req.user as IUser;
     let isAdmin = false;
     if(user) {
@@ -100,7 +94,6 @@ export async function resetPassRequestMiddleWare(req: Request, res: Response, ne
             });
         }
     }
-
     next();
 }
 
@@ -127,21 +120,16 @@ export async function resetPasswordMiddleware(req: Request, res: Response, next:
             error: true
         });
     }
-
-
     //can add any other checks here if needed such as 
     //checking if the user exists in the database
     //checking the ip address of the user who requested the reset
     //checking the region etc, can also check and add previous passwords
     //to the user model if needed and prevent the user from using the same password
     //here would be a good check for that if implementing
-
     let userID = verifiedResetToken.user;
     req.body.user = userID;
 
     next();
-    
-
 }
 
 export async function rememberMe(req: Request, res: Response, next: NextFunction){

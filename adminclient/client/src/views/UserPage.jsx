@@ -1,19 +1,14 @@
 import React, {useState, useEffect} from "react";
-import avatar from "./avatar.png";
 
-import {  Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import SVG from "react-inlinesvg";
 import { useAuth } from "../context/Auth.context";
 
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
   Form,
-  InputGroup,
-  Navbar,
-  Nav,
   Container,
   Row,
   Col,

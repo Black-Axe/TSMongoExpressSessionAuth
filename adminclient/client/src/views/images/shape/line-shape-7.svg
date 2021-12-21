@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="526px" height="53px" viewBox="0 0 526 53" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-  <g id="Group" transform="matrix(0.9998477 0.017452406 -0.017452406 0.9998477 3.21875 2.5429688)">
-    <path d="M0 17C0 17 329.401 -9.65599 515 5.4846" transform="matrix(1 -1.0402444E-09 1.0402444E-09 1 0.4189453 6.642578)" id="Path" fill="none" fill-rule="evenodd" stroke="#FFB840" stroke-width="5" stroke-linecap="round" />
-    <path d="M-2.8152e-17 20.586C-2.8152e-17 20.586 334.128 -9.3167 519.312 4.2165" transform="matrix(0.99939084 0.03489949 -0.03489949 0.99939084 0.71777344 0)" id="Path" fill="none" fill-rule="evenodd" stroke="#FFB840" stroke-width="5" stroke-linecap="round" />
-  </g>
-</svg>

@@ -66,13 +66,13 @@ router.get("/logoutsuccess", function (req, res) {
     });
 })
 
-router.post("/resetPasswordRequest", resetPassRequestValidation, resetPassRequestMiddleWare, resetPasswordRequest);
-
-
-
-//this is what our frontend client will use to call the server and get the user to change their password
+router.post("/resetPasswordRequest", 
+            resetPassRequestValidation, 
+            resetPassRequestMiddleWare, 
+            resetPasswordRequest);
+//this is what our frontend client will use
+//to call the server and get the user to change their password
 router.get("/verifyResetToken/:resetToken", verifyResetToken);
-
 
 router.post("/resetPassword", resetPasswordValidation, resetPasswordMiddleware, resetUserPass);
 export default router;

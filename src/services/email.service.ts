@@ -1,17 +1,14 @@
-import { Router, Response } from "express";
-import HttpStatusCodes from "http-status-codes";
-
 require('dotenv').config();
-
-
 import nodemailer from 'nodemailer';
 import config from "../../config/defaults";
+const clientURL = config.adminClient;
+const mailPORT = Number(process.env.MAIL_PORT);
+const host = process.env.MAIL_HOST
 
-let clientURL = config.adminClient;
-
+//if using Google email service, you may need to allow less secure apps
 const transporter = nodemailer.createTransport({
-    host: process.env.MAIL_HOST,
-    port: 465,
+    host: host,
+    port: mailPORT,
     secure: true,
     auth: {
         user: process.env.MAIL_EMAIL,
@@ -20,13 +17,14 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendResetLink = ({tokenString, email}:{tokenString:string, email:string}) => {
+      let link = `${clientURL}/reset/${tokenString}`;
+      let html = `<p>You have requested to reset your password. Please click the link below to reset your password:</p>
+                  <a href="${link}">${link}</a>`;
       const mailOptions = {
             from: process.env.MAIL_EMAIL,
             to: email,
             subject: "Password Reset",
-            text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
-            + `Please click on the following link, or paste this into your browser to complete the process:\n\n`
-            + `${clientURL}reset/${tokenString}\n\n`
+            html: html
       }
       transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
@@ -43,4 +41,3 @@ export const sendResetLink = ({tokenString, email}:{tokenString:string, email:st
       });
 
 }
-

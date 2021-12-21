@@ -45,22 +45,19 @@ export async function regularRegister(req: Request, res: Response, next: NextFun
     };
 }
 
-//request to reset password
+//request to get reset password link
 export async function resetPasswordRequest(req: Request, res: Response, next: NextFunction) {
     const { email, username } = req.body;
-    //if the user supplied an email
-    console.log("received request to reset password for user: ", email);
-    //generate new reset token and send email
+      
     if (email) {
+        //if the user supplied an email  
         let resetToken = await createResetToken({ email: email });
         if (resetToken.error) {
-            res.status(400).send(resetToken);
+            res.status(400).send({message: "Error creating reset token",});
         } else {
             //send the email link here
-            //sendResetLink({email: email, tokenString: resetToken.resetToken});
-            res.status(200).send({
-                message: "if the user exists, an email will be sent to them"
-            });
+            sendResetLink({email: email, tokenString: resetToken.resetToken});
+            res.status(200).send({ message: "if the user exists, an email will be sent to them"});
         }
 
     } else if (username) {
@@ -69,14 +66,11 @@ export async function resetPasswordRequest(req: Request, res: Response, next: Ne
         //find the users email
         let user = await User.findOne({ username: username });
         let usersEmail = user.email;
-
-
-
         if (resetToken.error) {
             res.status(400).send(resetToken);
         } else {
             //send the email link here
-            //sendResetLink({email: usersEmail, tokenString: resetToken.resetToken});
+            sendResetLink({email: usersEmail, tokenString: resetToken.resetToken});
             res.status(200).send({
                 message: "if the user exists, an email will be sent to them"
             });
@@ -113,10 +107,6 @@ export async function verifyResetToken(req: Request, res: Response, next: NextFu
         });
 
     }
-
-
-
-
 }
 
 //used to reset the password
@@ -132,7 +122,4 @@ export async function resetUserPass(req: Request, res: Response, next: NextFunct
     } else {
         return res.status(200).send(updated);
     }
-
-
-
 }

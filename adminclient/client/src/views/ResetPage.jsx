@@ -8,7 +8,6 @@ import {useParams} from "react-router-dom";
 let APIURL = process.env.REACT_APP_API_VERIFY_RESET;
 
 const ResetPage = () => {
-      const [user, setUser] = useState();
       const [loading, setLoading] = useState(true);
       let {resettoken} = useParams();
       const navigate = useNavigate();
