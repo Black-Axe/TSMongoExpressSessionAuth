@@ -45,12 +45,16 @@ export const UserProvider  = ({children}) => {
             }
   }
   useEffect(()=> {
-     getVerified()
+      if(!isAuthenticated){
+            getVerified();
+      }
      //here we get the correct state of the user
       console.log("state of verification is " + authenticatedRef.current);
+
+
   },[])
 
-   async function  login(username, password){
+   async function  login(username, password, rememberme){
       console.log("login context function");
       return fetch(LOGIN_URL, {
           method: "POST",
@@ -60,6 +64,7 @@ export const UserProvider  = ({children}) => {
           body: JSON.stringify({
               username,
               password,
+              remember:rememberme,
           }),
           credentials: "include",
       }).then(response => {
@@ -84,6 +89,7 @@ export const UserProvider  = ({children}) => {
   }
 
       async function logout(){
+          console.log("loggingout");
               return fetch(LOGOUT_URL, {
                   method: "GET",
                   credentials: "include",
@@ -156,7 +162,7 @@ export const UserProvider  = ({children}) => {
                   login,
                   logout,
                   profile,
-                    signup,
+                    signup
       }
 
 

@@ -5,17 +5,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import * as Yup from "yup";
 import viewImg from "../img/view.svg";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/Auth.context";
 
-const LoginForm =  ({setParentError}) => {
+const LoginForm = ({ setParentError }) => {
   const navigate = useNavigate();
-  const {isAuthenticated,login} = useAuth();
+  const { login } = useAuth();
 
 
   // for password show hide
   const [passwordShown, setPasswordShown] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
@@ -39,23 +40,27 @@ const LoginForm =  ({setParentError}) => {
     console.log("dispatching login from context");
     let username = data.username;
     let password = data.password;
-  let response = await login(username, password);
-  console.log(response);
-  if(response.error){
-    setParentError(response.error);
-  }
-  else{
-    console.log("setting current user");
-    setParentError("");
-    navigate("/user");
- 
-  }
-  
+    let keepMeLoggedIn = rememberMe;
+    let response = await login(username, password, keepMeLoggedIn);
+    console.log(response);
+    if (response.error) {
+      setParentError(response.error);
+    }
+    else {
+      console.log("setting current user");
+      setParentError("");
+      navigate("/user");
+
+    }
+
   }
 
+  function handleRemember(e) {
+    setRememberMe(e.target.checked);
+  }
   return (
     <>
-    
+
       <form onSubmit={handleSubmit(onSubmit)} className="user-data-form ">
         <div className="row">
           <div className="col-12">
@@ -97,11 +102,14 @@ const LoginForm =  ({setParentError}) => {
           <div className="col-12">
             <div className="agreement-checkbox d-flex justify-content-between align-items-center">
               <div>
-                <input type="checkbox" id="remember" />
+               
+                <input type="checkbox" id="remember" onChange={handleRemember}/>
+                
                 <label htmlFor="remember">Keep me logged in</label>
+               
               </div>
             </div>
-            {/*  /.agreement-checkbox */}
+            
           </div>
           <div className="col-12">
             <button className="theme-btn-one mt-50 mb-50">Login</button>

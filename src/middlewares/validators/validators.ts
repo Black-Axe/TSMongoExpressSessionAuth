@@ -34,10 +34,22 @@ export const SUDOOptionalUserAccessLevel = [
     ),
 ];
 
-export const resetPassValidation = [
+export const resetPassRequestValidation = [
     //check for email or username
     oneOf([
         check("email", "email is required").not().isEmpty().isEmail().withMessage("email is invalid"),
         check("username", "username is required").not().isEmpty().withMessage("username is invalid")
     ]),
+]
+
+export const resetPasswordValidation = [
+    check("resetToken", "resetToken is required").not().isEmpty(),
+    check("password", "password is required").not().isEmpty().isLength({min: 6}).withMessage("password must be at least 6 characters long"),
+    check("confirmPassword", "password confirmation is required").not().isEmpty().custom((value, {req}) => {
+        if (value !== req.body.password) {
+            throw new Error("Passwords do not match");
+        }
+        return true;
+    }
+    )
 ]

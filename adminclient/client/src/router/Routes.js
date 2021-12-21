@@ -7,10 +7,11 @@ import SignUp from "../views/SignUp";
 
 import UserPage from "../views/UserPage";
 import ResetPage from "../views/ResetPage";
+import ForgotPassword from "../views/ForgotPassword";
 import { useAuth } from "../context/Auth.context";
  
 
-import { BrowserRouter, BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, BrowserRouter as Router, Route, Routes, Navigate , Link} from "react-router-dom";
 //import RequireAuth from "../Private/RequireAuth";
 
 
@@ -53,7 +54,16 @@ const AllRoutes = () => {
                         <RequireAuth children={<UserPage />} />
                 } />
 
+                <Route path="forgotpassword" element={<ForgotPassword />} />
+
                 <Route path="/reset/:resettoken" element={<ResetPage />} />
+                <Route path ="/passwordSuccess" element={
+                  <>
+                        <h2>Succesfully reset password</h2>
+                        <Link to="/">Login</Link>
+                  </>
+                } />
+                <Route path="/*" element={<Home />} />
 
             </Routes>
         </BrowserRouter>

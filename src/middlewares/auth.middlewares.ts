@@ -4,6 +4,8 @@ import {validationResult} from 'express-validator/check';
 import User, { IUser } from "../models/User/User";
 import UserType from "../models/UserType/UserType";
 import accessRIGHTS from "../models/UserType/config";
+import { verifyJWTToken } from "../services/resettoken.service";
+import ResetToken, { IResetToken } from "../models/ResetToken/ResetToken";
 
 
 export function loginMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -74,7 +76,7 @@ export async function SUDOMiddleware(req: Request, res: Response, next: NextFunc
     next();
 }
 
-export async function resetPassMiddleWare(req: Request, res: Response, next: NextFunction) {
+export async function resetPassRequestMiddleWare(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -82,7 +84,7 @@ export async function resetPassMiddleWare(req: Request, res: Response, next: Nex
     //check if we got either a username or email and proceed accordingly
     let email = req.body.email;
     let username = req.body.username;
-    //check if user exists in either case
+    //check if user exists in either case , handling email first if that is the case
     if(email) {
         let user = await User.findOne({email: email});
         if(!user) {
@@ -99,5 +101,56 @@ export async function resetPassMiddleWare(req: Request, res: Response, next: Nex
         }
     }
 
+    next();
+}
+
+export async function resetPasswordMiddleware(req: Request, res: Response, next: NextFunction){
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    //get the token from the request
+    let resetToken = req.body.resetToken;
+    //check if the token is valid or expired
+    let verified = verifyJWTToken(resetToken);
+    if(verified.error){
+        return res.status(422).json({
+            message: 'invalid or expired token',
+            error: true
+        });
+    }
+    //check if the token exists in the database
+    let verifiedResetToken = await ResetToken.findOne({resetToken: resetToken}) as IResetToken;
+    if(!verifiedResetToken) {
+        return res.status(422).json({
+            message: 'invalid token',
+            error: true
+        });
+    }
+
+
+    //can add any other checks here if needed such as 
+    //checking if the user exists in the database
+    //checking the ip address of the user who requested the reset
+    //checking the region etc, can also check and add previous passwords
+    //to the user model if needed and prevent the user from using the same password
+    //here would be a good check for that if implementing
+
+    let userID = verifiedResetToken.user;
+    req.body.user = userID;
+
+    next();
+    
+
+}
+
+export async function rememberMe(req: Request, res: Response, next: NextFunction){
+    if(req.body.remember){
+        console.log('remember me');
+        console.log(req.body.remember);
+        var oneWeek = 7 * 24 * 60 * 60 * 1000;
+        req.session.cookie.expires = new Date(Date.now() + oneWeek);
+        req.session.cookie.maxAge = oneWeek;
+    }
     next();
 }

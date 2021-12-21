@@ -8,6 +8,7 @@ export default function Home() {
                   <Link to="login">login</Link> <br />
                   <Link to="register">register</Link> <br />
                   <Link to="profile">user profile(protected)</Link> <br />
+                  <Link to="forgotpassword">Forgot Password?</Link> <br />
 
                   
             </div>

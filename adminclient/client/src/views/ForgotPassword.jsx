@@ -1,47 +1,20 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import useDocumentTitle from "../components/useDocumentTitle/useDocumentTitle.js";
-import { Link, useNavigate } from "react-router-dom";
-import ResetForm from "../components/ResetPassForm/ResetForm.js";
+import { Link } from "react-router-dom";
+import LoginForm from "../components/LoginForm/LoginForm.js";
 import genericLogo from "./images/logo/genericLogo.png";
-import {useParams} from "react-router-dom";
+import ForgotPasswordForm from "../components/ForgotPassword/ForgotPassword.js";
 
-let APIURL = process.env.REACT_APP_API_VERIFY_RESET;
+const ForgotPasswordPage = () => {
+  const [parentError, setParentError] = useState("");
 
-const ResetPage = () => {
-      const [user, setUser] = useState();
-      const [loading, setLoading] = useState(true);
-      let {resettoken} = useParams();
-      const navigate = useNavigate();
-      const [parentError, setParentError] = useState("");
-      useEffect(() => {
-        //validate the token from the server
-        async function validateToken() {
-          const response = await fetch(`${APIURL}/${resettoken}`);
-          const data = await response.json();
-          if (data.error) {
-            console.log(data.error);
-            navigate("/");
-          }
-          console.log(data);
-          setLoading(false);
-          
-        }
-        validateToken();
-
-      } , [resettoken]);
-
-  useDocumentTitle("Reset Password");
-  return loading ? (
-    <>
-    <h2>loading</h2>
-    </>
-    ) 
-    : (
+  useDocumentTitle("Forgot Password");
+  return (
     <div className="main-page-wrapper p0">
       <div className="user-data-page clearfix d-lg-flex">
         <div className="illustration-wrapper d-flex align-items-center justify-content-between flex-column">
           <h3 className="font-rubik">
-            Reset Password {
+            Forgot Password? {
               
               
             }
@@ -76,13 +49,13 @@ const ResetPage = () => {
             </h2>
             <p className="header-info pt-30 pb-50">
               
-              Password Reset Form
+               <Link to="/signup">Sign Up</Link>
               
             </p>
             <p className="login-err">{parentError? parentError : ""}</p>
           </div>
 
-          <ResetForm setParentError={setParentError} resetToken={resettoken}/>
+          <ForgotPasswordForm setParentError={setParentError}/>
           {/* Login Form End */}
           <p className="text-center font-rubik copyright-text">
             Copyright @{new Date().getFullYear()}{" "}
@@ -99,4 +72,4 @@ const ResetPage = () => {
   );
 };
 
-export default ResetPage;
+export default ForgotPasswordPage;

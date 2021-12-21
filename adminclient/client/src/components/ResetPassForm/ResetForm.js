@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -6,8 +6,9 @@ import viewImg from "../img/view.svg";
 import { useAuth } from "../../context/Auth.context";
 import {  useNavigate } from "react-router-dom";
 
-const ResetForm = ({setParentError}) => {
-  const {signup} = useAuth();
+const ResetForm = ({setParentError, resetToken}) => {
+  const resetURL = process.env.REACT_APP_API_RESET_PASSWORD;
+
   const navigate = useNavigate();
 
   // for password show hide
@@ -45,6 +46,29 @@ const ResetForm = ({setParentError}) => {
     // display form data on success
     let password = data.password;
     let confirmPassword = data.confirmPassword;
+
+    //post request to reset password
+    const response = await fetch(resetURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password,
+        confirmPassword,
+        resetToken,
+      }),
+    });
+    const json = await response.json();
+    console.log(json);
+    if(json.error){
+      setParentError(json.error);
+    }
+    else{
+      navigate("/passwordSuccess");
+    }
+  
+
   }
 
   return (
@@ -115,7 +139,7 @@ const ResetForm = ({setParentError}) => {
                 />
 
                 <label htmlFor="acceptTerms greenme">
-                  By clicking "SIGN UP" I agree to the Terms and Conditions and
+                  By clicking "Reset" I agree to the Terms and Conditions and
                   Privacy Policy.
                 </label>
                 <p className="form-error">{errors.acceptTerms?.message}</p>
@@ -125,7 +149,7 @@ const ResetForm = ({setParentError}) => {
           </div>
           <div className="col-12">
             <button type="submit" className="theme-btn-one mt-30 mb-50">
-              Sign Up
+            Reset
             </button>
           </div>
           {/* End .col */}
