@@ -2,6 +2,8 @@
 
 ![LoginExample](./repo/loginexample.png "Login Example")
 ![Profile Example](./repo/uiprofile.png "Profile Example")
+<img src="./repo/forgotpassfront.png" width=60%  />
+<img src="https://miro.medium.com/max/550/1*NoMm76KTcAFYZtMlB3zpMw.png" width=70% />
 
 #### Features:
 <ul>
@@ -14,6 +16,7 @@
 <li>Session storage</li>
 <li>MongoDb</li>
 <li>Passport</li>
+<li>Reset Password flow</li>
 </ul>
 
 #### Overview
@@ -94,6 +97,22 @@ The app uses a function called ```initAndFill()``` located in the server file, t
 //      banned: "banned",
 //  };
 @param accessRights:string
+ ```
+
+```ResetToken``` 
+```typescript
+
+//interface to model the resetToken schema
+//@param resetToken: string
+//@param user: string
+//@param expires: Date
+
+export interface IResetToken extends Document {
+      resetToken: string;
+      user: string;
+      createdAt: Date;
+      
+}
  ```
 
 
@@ -236,6 +255,21 @@ The app uses a function called ```initAndFill()``` located in the server file, t
             "61b96634b752f03f85063598"
             ...
     }
+}
+```
+
+#### Password Reset
+| Route | Description|
+| -----|-----|
+| **post /resetPasswordRequest**|Sends email to the supplied username or email for password resetting, includes a link|
+| **get /verifyResetToken**|Used by the front-end to verify the token and decide whether to show the form or not.|
+| **post /resetPassword**|Actual password resetting route.|
+
+
+`Response`
+```json
+{
+    "message": "if the user exists, an email will be sent to them"
 }
 ```
 
