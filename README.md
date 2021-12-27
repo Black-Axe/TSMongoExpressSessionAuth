@@ -1,3 +1,5 @@
+<img src="./repo/cover.png" width=100%  />
+
 ### MongoDB TypeScript Passport-Session backend with React front-end client
 
 ![LoginExample](./repo/loginexample.png "Login Example")

@@ -1,5 +1,9 @@
 import {Document, model, Schema} from 'mongoose';
 
+//interface to model the resetToken schema
+//@param resetToken: string
+//@param user: string
+//@param expires: Date
 
 export interface IResetToken extends Document {
       resetToken: string;
