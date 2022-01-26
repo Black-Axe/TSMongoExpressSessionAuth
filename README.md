@@ -171,7 +171,7 @@ export interface IResetToken extends Document {
   }
 ```
 `Response`
-```json
+```javascript
 {
    
     "message": "User registered",
@@ -204,7 +204,7 @@ export interface IResetToken extends Document {
 ```
 
 `Response`
-```json
+```javascript
 {
     "verified": true,
     "message": "welcome to your profile",
@@ -243,7 +243,7 @@ export interface IResetToken extends Document {
 
 
 `Response`
-```json
+```javascript
 {
     "verified": true,
     "message": "welcome to your profile",
