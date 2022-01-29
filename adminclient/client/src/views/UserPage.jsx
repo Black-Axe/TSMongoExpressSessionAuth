@@ -15,24 +15,35 @@ import {
 } from "react-bootstrap";
 
 function UserPage() {
-  const {isAuthenticated,logout, profile} = useAuth();
-  console.log(isAuthenticated + "isAuthenticated");
+ // const {isAuthenticated,logout, profile} = useAuth();
+ // console.log(isAuthenticated + "isAuthenticated");
 
   const [user, setUser] = useState({});
+  const [anon, setAnon] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
-      let response = await profile();
-      console.log(response);
-      if(response.verified){
-        setUser(response);
-        setLoading(false);
-      }else{
-        console.log("not verified");
-        navigate("/");
-      }
+   //   let response = await profile();
+     // console.log(response);
+     // if(response.verified){
+     //   setUser(response);
+     //   setLoading(false);
+     // }else{
+     //   console.log("not verified");
+     //   setAnon(true);
+     //   setLoading(false);
+     // }
+
+     //for now until connected to backend
+      setUser({
+        name: "John Doe",
+        email: "sample@doe.com",
+        verified: true,
+      });
+      setLoading(false);
+
 
     }
     fetchData();
@@ -47,7 +58,7 @@ function UserPage() {
   async function handleSubmit(e) {
     //logout
     e.preventDefault();
-    await logout();
+   // await logout();
     navigate("/");
     
 
@@ -70,8 +81,11 @@ function UserPage() {
                   <Card>
                     <Card.Header>
                       <Card.Header>
-                          <Card.Title as="h4">{user?.message.toUpperCase()}{" "}{user?.user?.username}{" ["}{user?.access}{"]"}</Card.Title>
-                      </Card.Header>
+                        {
+                          user.message ? <Card.Title as="h4">{user?.message.toUpperCase()}{" "}{user?.user?.username}{" ["}{user?.access}{"]"}</Card.Title>
+                            : <Card.Title as="h4">Not Logged In</Card.Title>
+                        }
+                          </Card.Header>
                     </Card.Header>
                     <Card.Body>
                       <Row>
@@ -187,6 +201,7 @@ function UserPage() {
                        home
                         
                       </Button>
+                      {/*
                       <Button
                         className="btn-fill pull-right"
                         type="submit"
@@ -196,6 +211,8 @@ function UserPage() {
                         Logout
                         
                       </Button>
+
+                      */}
                       <div className="clearfix"></div>
                     </Card.Body>
                   </Card>
@@ -228,7 +245,8 @@ function UserPage() {
                       <p className="card-description">{user?.user?.email}</p>
                     </div>
                     <p className="card-description text-center">
-                    Access Levels: {user?.access}
+                    Access Levels: 
+                    {user?.access ? user.acess : "Not Logged In"}
                     </p>
                   </Card.Body>
                   <Card.Footer>

@@ -11,7 +11,7 @@ import ForgotPassword from "../views/ForgotPassword";
 import { useAuth } from "../context/Auth.context";
  
 
-import { BrowserRouter, BrowserRouter as Router, Route, Routes, Navigate , Link} from "react-router-dom";
+import { BrowserRouter,  Route, Routes, Navigate , Link} from "react-router-dom";
 //import RequireAuth from "../Private/RequireAuth";
 
 
@@ -47,9 +47,7 @@ const AllRoutes = () => {
                 <LoggedIn><SignUp /></LoggedIn>
                         } />
                 <Route path="/register" element={<LoggedIn><SignUp /></LoggedIn>} />
-                <Route path="/user" element={
-                        <RequireAuth children={<UserPage />} />
-                } />
+                <Route path="/profileunprotected" element={<UserPage />} />
                 <Route path="/profile" element={
                         <RequireAuth children={<UserPage />} />
                 } />

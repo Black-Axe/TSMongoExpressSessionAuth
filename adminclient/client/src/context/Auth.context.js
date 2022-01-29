@@ -46,10 +46,15 @@ export const UserProvider  = ({children}) => {
   }
   useEffect(()=> {
       if(!isAuthenticated){
-            getVerified();
+         //   getVerified();
       }
      //here we get the correct state of the user
-      console.log("state of verification is " + authenticatedRef.current);
+     // console.log("state of verification is " + authenticatedRef.current);
+
+     console.log("setting user to verified until dev connects backend");
+        setIsAuthenticated(true);
+        setLoading(false);
+        
 
 
   },[])
