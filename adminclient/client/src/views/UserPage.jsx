@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 
 import {  useNavigate } from "react-router-dom";
 import SVG from "react-inlinesvg";
-import { useAuth } from "../context/Auth.context";
+//import { useAuth } from "../context/Auth.context";
 
 // react-bootstrap components
 import {
@@ -19,7 +19,7 @@ function UserPage() {
  // console.log(isAuthenticated + "isAuthenticated");
 
   const [user, setUser] = useState({});
-  const [anon, setAnon] = useState(false);
+ // const [anon, setAnon] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -201,7 +201,7 @@ function UserPage() {
                        home
                         
                       </Button>
-                      {/*
+                     
                       <Button
                         className="btn-fill pull-right"
                         type="submit"
@@ -212,7 +212,7 @@ function UserPage() {
                         
                       </Button>
 
-                      */}
+                     
                       <div className="clearfix"></div>
                     </Card.Body>
                   </Card>

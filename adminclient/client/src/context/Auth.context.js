@@ -15,12 +15,9 @@ export function useAuth() {
 
 export const UserProvider  = ({children}) => {
 
-  const [isAuthenticated, setIsAuthenticated, authenticatedRef] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading,setLoading]=useState(true);
-
-  const getVerified = async ()=>{
-      console.log("verifying user inside the context function. Loading = true");
-      /**
+       /**
        * what happens here is that we will check if the user is authenticated
        * while maintaining a loading state
        * if the user is authenticated or not, we will set the state accordingly
@@ -33,6 +30,11 @@ export const UserProvider  = ({children}) => {
        * is set up to use session storage, storing the session on the server,
        * as well as in the cookies
        */
+
+  /*
+  const getVerified = async ()=>{
+      console.log("verifying user inside the context function. Loading = true");
+ 
       let response = await profile();
       console.log("recieved response from server where the status of verified is: " + response.verified);
       if(response.verified){
@@ -44,10 +46,14 @@ export const UserProvider  = ({children}) => {
                   setLoading(false);
             }
   }
+    */
+  
   useEffect(()=> {
+      /*
       if(!isAuthenticated){
          //   getVerified();
       }
+        */
      //here we get the correct state of the user
      // console.log("state of verification is " + authenticatedRef.current);
 
