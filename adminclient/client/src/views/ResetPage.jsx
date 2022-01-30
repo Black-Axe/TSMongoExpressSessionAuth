@@ -27,7 +27,7 @@ const ResetPage = () => {
         }
         validateToken();
 
-      } , [resettoken]);
+      } , [resettoken, navigate]);
 
   useDocumentTitle("Reset Password");
   return loading ? (
